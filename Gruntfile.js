@@ -172,6 +172,15 @@ module.exports = function(grunt) {
             files: ['*.less'],
             tasks: ['less-css']
          }
+      },
+
+      minjson: {
+        compile: {
+            files: {
+              // Minify one json file
+              'js/data/systems.min.json': 'js/data/systems.json'
+            }
+        }
       }
 
    });
@@ -183,13 +192,15 @@ module.exports = function(grunt) {
    grunt.loadNpmTasks( 'grunt-contrib-jshint' );
    grunt.loadNpmTasks( 'grunt-contrib-less' );
    grunt.loadNpmTasks( 'grunt-lesslint' );
+   grunt.loadNpmTasks( 'grunt-minjson' );
 
    grunt.registerTask( 'update-three-examples', [ 'concat:threeExamples' ] );
    grunt.registerTask( 'dist-scdata', [ 'concat:scdata', 'uglify:scdata' ] );
    grunt.registerTask( 'dist-scmap', [ 'jshint:beforeconcat', 'concat:scmap', 'jshint:afterconcat','uglify:scmap' ] );
    grunt.registerTask( 'dist-extlibs', [ 'concat:extlibs', 'uglify:extlibs' ] );
    grunt.registerTask( 'less-css', [ 'less:css' ] );
+   grunt.registerTask( 'min-json', [ 'minjson' ] );
 
    // Default task(s).
-   grunt.registerTask( 'default', [ 'dist-extlibs', 'dist-scdata', 'dist-scmap', 'less-css' ] );
+   grunt.registerTask( 'default', [ 'dist-extlibs', 'dist-scdata', 'dist-scmap', 'less-css', 'min-json' ] );
 };
