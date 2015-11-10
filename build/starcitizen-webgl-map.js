@@ -1,6 +1,6 @@
 /*!
  * starcitizen-webgl-map v0.9.0 by Lianna Eeftinck
- * Copyright 2014 Lianna Eeftinck
+ * Copyright 2015 Lianna Eeftinck
  * https://github.com/Leeft/Star-Citizen-WebGL-Map
  * Licensed under http://opensource.org/licenses/MIT
  */

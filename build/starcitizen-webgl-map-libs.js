@@ -750,157 +750,6 @@ var Detector = {
 	}
 
 };
-/**
- * @author mrdoob / http://mrdoob.com/
- */
-
-var Stats = function () {
-
-	var startTime = Date.now(), prevTime = startTime;
-	var ms = 0, msMin = Infinity, msMax = 0;
-	var fps = 0, fpsMin = Infinity, fpsMax = 0;
-	var frames = 0, mode = 0;
-
-	var container = document.createElement( 'div' );
-	container.id = 'stats';
-	container.addEventListener( 'mousedown', function ( event ) { event.preventDefault(); setMode( ++ mode % 2 ) }, false );
-	container.style.cssText = 'width:80px;opacity:0.9;cursor:pointer';
-
-	var fpsDiv = document.createElement( 'div' );
-	fpsDiv.id = 'fps';
-	fpsDiv.style.cssText = 'padding:0 0 3px 3px;text-align:left;background-color:#002';
-	container.appendChild( fpsDiv );
-
-	var fpsText = document.createElement( 'div' );
-	fpsText.id = 'fpsText';
-	fpsText.style.cssText = 'color:#0ff;font-family:Helvetica,Arial,sans-serif;font-size:9px;font-weight:bold;line-height:15px';
-	fpsText.innerHTML = 'FPS';
-	fpsDiv.appendChild( fpsText );
-
-	var fpsGraph = document.createElement( 'div' );
-	fpsGraph.id = 'fpsGraph';
-	fpsGraph.style.cssText = 'position:relative;width:74px;height:30px;background-color:#0ff';
-	fpsDiv.appendChild( fpsGraph );
-
-	while ( fpsGraph.children.length < 74 ) {
-
-		var bar = document.createElement( 'span' );
-		bar.style.cssText = 'width:1px;height:30px;float:left;background-color:#113';
-		fpsGraph.appendChild( bar );
-
-	}
-
-	var msDiv = document.createElement( 'div' );
-	msDiv.id = 'ms';
-	msDiv.style.cssText = 'padding:0 0 3px 3px;text-align:left;background-color:#020;display:none';
-	container.appendChild( msDiv );
-
-	var msText = document.createElement( 'div' );
-	msText.id = 'msText';
-	msText.style.cssText = 'color:#0f0;font-family:Helvetica,Arial,sans-serif;font-size:9px;font-weight:bold;line-height:15px';
-	msText.innerHTML = 'MS';
-	msDiv.appendChild( msText );
-
-	var msGraph = document.createElement( 'div' );
-	msGraph.id = 'msGraph';
-	msGraph.style.cssText = 'position:relative;width:74px;height:30px;background-color:#0f0';
-	msDiv.appendChild( msGraph );
-
-	while ( msGraph.children.length < 74 ) {
-
-		var bar = document.createElement( 'span' );
-		bar.style.cssText = 'width:1px;height:30px;float:left;background-color:#131';
-		msGraph.appendChild( bar );
-
-	}
-
-	var setMode = function ( value ) {
-
-		mode = value;
-
-		switch ( mode ) {
-
-			case 0:
-				fpsDiv.style.display = 'block';
-				msDiv.style.display = 'none';
-				break;
-			case 1:
-				fpsDiv.style.display = 'none';
-				msDiv.style.display = 'block';
-				break;
-		}
-
-	};
-
-	var updateGraph = function ( dom, value ) {
-
-		var child = dom.appendChild( dom.firstChild );
-		child.style.height = value + 'px';
-
-	};
-
-	return {
-
-		REVISION: 12,
-
-		domElement: container,
-
-		setMode: setMode,
-
-		begin: function () {
-
-			startTime = Date.now();
-
-		},
-
-		end: function () {
-
-			var time = Date.now();
-
-			ms = time - startTime;
-			msMin = Math.min( msMin, ms );
-			msMax = Math.max( msMax, ms );
-
-			msText.textContent = ms + ' MS (' + msMin + '-' + msMax + ')';
-			updateGraph( msGraph, Math.min( 30, 30 - ( ms / 200 ) * 30 ) );
-
-			frames ++;
-
-			if ( time > prevTime + 1000 ) {
-
-				fps = Math.round( ( frames * 1000 ) / ( time - prevTime ) );
-				fpsMin = Math.min( fpsMin, fps );
-				fpsMax = Math.max( fpsMax, fps );
-
-				fpsText.textContent = fps + ' FPS (' + fpsMin + '-' + fpsMax + ')';
-				updateGraph( fpsGraph, Math.min( 30, 30 - ( fps / 100 ) * 30 ) );
-
-				prevTime = time;
-				frames = 0;
-
-			}
-
-			return time;
-
-		},
-
-		update: function () {
-
-			startTime = this.end();
-
-		}
-
-	}
-
-};
-
-if ( typeof module === 'object' ) {
-
-	module.exports = Stats;
-
-}
-// tween.js v.0.15.0 https://github.com/sole/tween.js
-void 0===Date.now&&(Date.now=function(){return(new Date).valueOf()});var TWEEN=TWEEN||function(){var n=[];return{REVISION:"14",getAll:function(){return n},removeAll:function(){n=[]},add:function(t){n.push(t)},remove:function(t){var r=n.indexOf(t);-1!==r&&n.splice(r,1)},update:function(t){if(0===n.length)return!1;var r=0;for(t=void 0!==t?t:"undefined"!=typeof window&&void 0!==window.performance&&void 0!==window.performance.now?window.performance.now():Date.now();r<n.length;)n[r].update(t)?r++:n.splice(r,1);return!0}}}();TWEEN.Tween=function(n){var t=n,r={},i={},u={},o=1e3,e=0,a=!1,f=!1,c=!1,s=0,h=null,l=TWEEN.Easing.Linear.None,p=TWEEN.Interpolation.Linear,E=[],d=null,v=!1,I=null,w=null,M=null;for(var O in n)r[O]=parseFloat(n[O],10);this.to=function(n,t){return void 0!==t&&(o=t),i=n,this},this.start=function(n){TWEEN.add(this),f=!0,v=!1,h=void 0!==n?n:"undefined"!=typeof window&&void 0!==window.performance&&void 0!==window.performance.now?window.performance.now():Date.now(),h+=s;for(var o in i){if(i[o]instanceof Array){if(0===i[o].length)continue;i[o]=[t[o]].concat(i[o])}r[o]=t[o],r[o]instanceof Array==!1&&(r[o]*=1),u[o]=r[o]||0}return this},this.stop=function(){return f?(TWEEN.remove(this),f=!1,null!==M&&M.call(t),this.stopChainedTweens(),this):this},this.stopChainedTweens=function(){for(var n=0,t=E.length;t>n;n++)E[n].stop()},this.delay=function(n){return s=n,this},this.repeat=function(n){return e=n,this},this.yoyo=function(n){return a=n,this},this.easing=function(n){return l=n,this},this.interpolation=function(n){return p=n,this},this.chain=function(){return E=arguments,this},this.onStart=function(n){return d=n,this},this.onUpdate=function(n){return I=n,this},this.onComplete=function(n){return w=n,this},this.onStop=function(n){return M=n,this},this.update=function(n){var f;if(h>n)return!0;v===!1&&(null!==d&&d.call(t),v=!0);var M=(n-h)/o;M=M>1?1:M;var O=l(M);for(f in i){var m=r[f]||0,N=i[f];N instanceof Array?t[f]=p(N,O):("string"==typeof N&&(N=m+parseFloat(N,10)),"number"==typeof N&&(t[f]=m+(N-m)*O))}if(null!==I&&I.call(t,O),1==M){if(e>0){isFinite(e)&&e--;for(f in u){if("string"==typeof i[f]&&(u[f]=u[f]+parseFloat(i[f],10)),a){var T=u[f];u[f]=i[f],i[f]=T}r[f]=u[f]}return a&&(c=!c),h=n+s,!0}null!==w&&w.call(t);for(var g=0,W=E.length;W>g;g++)E[g].start(n);return!1}return!0}},TWEEN.Easing={Linear:{None:function(n){return n}},Quadratic:{In:function(n){return n*n},Out:function(n){return n*(2-n)},InOut:function(n){return(n*=2)<1?.5*n*n:-.5*(--n*(n-2)-1)}},Cubic:{In:function(n){return n*n*n},Out:function(n){return--n*n*n+1},InOut:function(n){return(n*=2)<1?.5*n*n*n:.5*((n-=2)*n*n+2)}},Quartic:{In:function(n){return n*n*n*n},Out:function(n){return 1- --n*n*n*n},InOut:function(n){return(n*=2)<1?.5*n*n*n*n:-.5*((n-=2)*n*n*n-2)}},Quintic:{In:function(n){return n*n*n*n*n},Out:function(n){return--n*n*n*n*n+1},InOut:function(n){return(n*=2)<1?.5*n*n*n*n*n:.5*((n-=2)*n*n*n*n+2)}},Sinusoidal:{In:function(n){return 1-Math.cos(n*Math.PI/2)},Out:function(n){return Math.sin(n*Math.PI/2)},InOut:function(n){return.5*(1-Math.cos(Math.PI*n))}},Exponential:{In:function(n){return 0===n?0:Math.pow(1024,n-1)},Out:function(n){return 1===n?1:1-Math.pow(2,-10*n)},InOut:function(n){return 0===n?0:1===n?1:(n*=2)<1?.5*Math.pow(1024,n-1):.5*(-Math.pow(2,-10*(n-1))+2)}},Circular:{In:function(n){return 1-Math.sqrt(1-n*n)},Out:function(n){return Math.sqrt(1- --n*n)},InOut:function(n){return(n*=2)<1?-.5*(Math.sqrt(1-n*n)-1):.5*(Math.sqrt(1-(n-=2)*n)+1)}},Elastic:{In:function(n){var t,r=.1,i=.4;return 0===n?0:1===n?1:(!r||1>r?(r=1,t=i/4):t=i*Math.asin(1/r)/(2*Math.PI),-(r*Math.pow(2,10*(n-=1))*Math.sin(2*(n-t)*Math.PI/i)))},Out:function(n){var t,r=.1,i=.4;return 0===n?0:1===n?1:(!r||1>r?(r=1,t=i/4):t=i*Math.asin(1/r)/(2*Math.PI),r*Math.pow(2,-10*n)*Math.sin(2*(n-t)*Math.PI/i)+1)},InOut:function(n){var t,r=.1,i=.4;return 0===n?0:1===n?1:(!r||1>r?(r=1,t=i/4):t=i*Math.asin(1/r)/(2*Math.PI),(n*=2)<1?-.5*r*Math.pow(2,10*(n-=1))*Math.sin(2*(n-t)*Math.PI/i):r*Math.pow(2,-10*(n-=1))*Math.sin(2*(n-t)*Math.PI/i)*.5+1)}},Back:{In:function(n){var t=1.70158;return n*n*((t+1)*n-t)},Out:function(n){var t=1.70158;return--n*n*((t+1)*n+t)+1},InOut:function(n){var t=2.5949095;return(n*=2)<1?.5*n*n*((t+1)*n-t):.5*((n-=2)*n*((t+1)*n+t)+2)}},Bounce:{In:function(n){return 1-TWEEN.Easing.Bounce.Out(1-n)},Out:function(n){return 1/2.75>n?7.5625*n*n:2/2.75>n?7.5625*(n-=1.5/2.75)*n+.75:2.5/2.75>n?7.5625*(n-=2.25/2.75)*n+.9375:7.5625*(n-=2.625/2.75)*n+.984375},InOut:function(n){return.5>n?.5*TWEEN.Easing.Bounce.In(2*n):.5*TWEEN.Easing.Bounce.Out(2*n-1)+.5}}},TWEEN.Interpolation={Linear:function(n,t){var r=n.length-1,i=r*t,u=Math.floor(i),o=TWEEN.Interpolation.Utils.Linear;return 0>t?o(n[0],n[1],i):t>1?o(n[r],n[r-1],r-i):o(n[u],n[u+1>r?r:u+1],i-u)},Bezier:function(n,t){var r,i=0,u=n.length-1,o=Math.pow,e=TWEEN.Interpolation.Utils.Bernstein;for(r=0;u>=r;r++)i+=o(1-t,u-r)*o(t,r)*n[r]*e(u,r);return i},CatmullRom:function(n,t){var r=n.length-1,i=r*t,u=Math.floor(i),o=TWEEN.Interpolation.Utils.CatmullRom;return n[0]===n[r]?(0>t&&(u=Math.floor(i=r*(1+t))),o(n[(u-1+r)%r],n[u],n[(u+1)%r],n[(u+2)%r],i-u)):0>t?n[0]-(o(n[0],n[0],n[1],n[1],-i)-n[0]):t>1?n[r]-(o(n[r],n[r],n[r-1],n[r-1],i-r)-n[r]):o(n[u?u-1:0],n[u],n[u+1>r?r:u+1],n[u+2>r?r:u+2],i-u)},Utils:{Linear:function(n,t,r){return(t-n)*r+n},Bernstein:function(n,t){var r=TWEEN.Interpolation.Utils.Factorial;return r(n)/r(t)/r(n-t)},Factorial:function(){var n=[1];return function(t){var r,i=1;if(n[t])return n[t];for(r=t;r>1;r--)i*=r;return n[t]=i}}(),CatmullRom:function(n,t,r,i,u){var o=.5*(r-n),e=.5*(i-t),a=u*u,f=u*a;return(2*t-2*r+o+e)*f+(-3*t+3*r-2*o-e)*a+o*u+t}}},"undefined"!=typeof module&&module.exports&&(module.exports=TWEEN);
 /*!
 
  handlebars v1.3.0
@@ -3652,7 +3501,7 @@ var __module0__ = (function(__dependency1__, __dependency2__, __dependency3__, _
 
   Javascript State Machine Library - https://github.com/jakesgordon/javascript-state-machine
 
-  Copyright (c) 2012, 2013, 2014, Jake Gordon and contributors
+  Copyright (c) 2012, 2013, 2014, 2015, Jake Gordon and contributors
   Released under the MIT license - https://github.com/jakesgordon/javascript-state-machine/blob/master/LICENSE
 
 */
@@ -3663,7 +3512,7 @@ var __module0__ = (function(__dependency1__, __dependency2__, __dependency3__, _
 
     //---------------------------------------------------------------------------
 
-    VERSION: "2.3.0",
+    VERSION: "2.3.5",
 
     //---------------------------------------------------------------------------
 
@@ -3687,18 +3536,23 @@ var __module0__ = (function(__dependency1__, __dependency2__, __dependency3__, _
 
     create: function(cfg, target) {
 
-      var initial   = (typeof cfg.initial == 'string') ? { state: cfg.initial } : cfg.initial; // allow for a simple string, or an object with { state: 'foo', event: 'setup', defer: true|false }
-      var terminal  = cfg.terminal || cfg['final'];
-      var fsm       = target || cfg.target  || {};
-      var events    = cfg.events || [];
-      var callbacks = cfg.callbacks || {};
-      var map       = {};
+      var initial      = (typeof cfg.initial == 'string') ? { state: cfg.initial } : cfg.initial; // allow for a simple string, or an object with { state: 'foo', event: 'setup', defer: true|false }
+      var terminal     = cfg.terminal || cfg['final'];
+      var fsm          = target || cfg.target  || {};
+      var events       = cfg.events || [];
+      var callbacks    = cfg.callbacks || {};
+      var map          = {}; // track state transitions allowed for an event { event: { from: [ to ] } }
+      var transitions  = {}; // track events allowed from a state            { state: [ event ] }
 
       var add = function(e) {
         var from = (e.from instanceof Array) ? e.from : (e.from ? [e.from] : [StateMachine.WILDCARD]); // allow 'wildcard' transition if 'from' is not specified
         map[e.name] = map[e.name] || {};
-        for (var n = 0 ; n < from.length ; n++)
+        for (var n = 0 ; n < from.length ; n++) {
+          transitions[from[n]] = transitions[from[n]] || [];
+          transitions[from[n]].push(e.name);
+
           map[e.name][from[n]] = e.to || from[n]; // allow no-op transition if 'to' is not specified
+        }
       };
 
       if (initial) {
@@ -3719,13 +3573,13 @@ var __module0__ = (function(__dependency1__, __dependency2__, __dependency3__, _
           fsm[name] = callbacks[name]
       }
 
-      fsm.current = 'none';
-      fsm.is      = function(state) { return (state instanceof Array) ? (state.indexOf(this.current) >= 0) : (this.current === state); };
-      fsm.can     = function(event) { return !this.transition && (map[event].hasOwnProperty(this.current) || map[event].hasOwnProperty(StateMachine.WILDCARD)); }
-      fsm.cannot  = function(event) { return !this.can(event); };
-      fsm.error   = cfg.error || function(name, from, to, args, error, msg, e) { throw e || msg; }; // default behavior when something unexpected happens is to throw an exception, but caller can override this behavior if desired (see github issue #3 and #17)
-
-      fsm.isFinished = function() { return this.is(terminal); };
+      fsm.current     = 'none';
+      fsm.is          = function(state) { return (state instanceof Array) ? (state.indexOf(this.current) >= 0) : (this.current === state); };
+      fsm.can         = function(event) { return !this.transition && (map[event].hasOwnProperty(this.current) || map[event].hasOwnProperty(StateMachine.WILDCARD)); }
+      fsm.cannot      = function(event) { return !this.can(event); };
+      fsm.transitions = function()      { return transitions[this.current]; };
+      fsm.isFinished  = function()      { return this.is(terminal); };
+      fsm.error       = cfg.error || function(name, from, to, args, error, msg, e) { throw e || msg; }; // default behavior when something unexpected happens is to throw an exception, but caller can override this behavior if desired (see github issue #3 and #17)
 
       if (initial && !initial.defer)
         fsm[initial.event]();
@@ -3859,24 +3713,29 @@ var __module0__ = (function(__dependency1__, __dependency2__, __dependency3__, _
   //========
   // BROWSER
   //========
-  else if (window) {
+  else if (typeof window !== 'undefined') {
     window.StateMachine = StateMachine;
+  }
+  //===========
+  // WEB WORKER
+  //===========
+  else if (typeof self !== 'undefined') {
+    self.StateMachine = StateMachine;
   }
 
 }());
 
-
 /*!
- * jScrollPane - v2.0.14 - 2013-05-01
+ * jScrollPane - v2.0.22 - 2015-04-25
  * http://jscrollpane.kelvinluck.com/
  *
- * Copyright (c) 2010 Kelvin Luck
+ * Copyright (c) 2014 Kelvin Luck
  * Dual licensed under the MIT or GPL licenses.
  */
 
 // Script: jScrollPane - cross browser customisable scrollbars
 //
-// *Version: 2.0.14, Last updated: 2013-05-01*
+// *Version: 2.0.22, Last updated: 2015-04-25*
 //
 // Project Home - http://jscrollpane.kelvinluck.com/
 // GitHub       - http://github.com/vitch/jScrollPane
@@ -3885,7 +3744,7 @@ var __module0__ = (function(__dependency1__, __dependency2__, __dependency3__, _
 //
 // About: License
 //
-// Copyright (c) 2013 Kelvin Luck
+// Copyright (c) 2014 Kelvin Luck
 // Dual licensed under the MIT or GPL Version 2 licenses.
 // http://jscrollpane.kelvinluck.com/MIT-LICENSE.txt
 // http://jscrollpane.kelvinluck.com/GPL-LICENSE.txt
@@ -3900,13 +3759,21 @@ var __module0__ = (function(__dependency1__, __dependency2__, __dependency3__, _
 // This plugin is tested on the browsers below and has been found to work reliably on them. If you run
 // into a problem on one of the supported browsers then please visit the support section on the jScrollPane
 // website (http://jscrollpane.kelvinluck.com/) for more information on getting support. You are also
-// welcome to fork the project on GitHub if you can contribute a fix for a given issue. 
+// welcome to fork the project on GitHub if you can contribute a fix for a given issue.
 //
 // jQuery Versions - tested in 1.4.2+ - reported to work in 1.3.x
 // Browsers Tested - Firefox 3.6.8, Safari 5, Opera 10.6, Chrome 5.0, IE 6, 7, 8
 //
 // About: Release History
 //
+// 2.0.22 - (2015-04-25) Resolve a memory leak due to an event handler that isn't cleaned up in destroy (thanks @timjnh)
+// 2.0.21 - (2015-02-24) Simplify UMD pattern: fixes browserify when loading jQuery outside of bundle
+// 2.0.20 - (2014-10-23) Adds AMD support (thanks @carlosrberto) and support for overflow-x/overflow-y (thanks @darimpulso)
+// 2.0.19 - (2013-11-16) Changes for more reliable scroll amount with latest mousewheel plugin (thanks @brandonaaron)
+// 2.0.18 - (2013-10-23) Fix for issue with gutters and scrollToElement (thanks @Dubiy)
+// 2.0.17 - (2013-08-17) Working correctly when box-sizing is set to border-box (thanks @pieht)
+// 2.0.16 - (2013-07-30) Resetting left position when scroll is removed. Fixes #189
+// 2.0.15 - (2013-07-29) Fixed issue with scrollToElement where the destX and destY are undefined.
 // 2.0.14 - (2013-05-01) Updated to most recent mouse wheel plugin (see #106) and related changes for sensible scroll speed
 // 2.0.13 - (2013-05-01) Switched to semver compatible version name
 // 2.0.0beta12 - (2012-09-27) fix for jQuery 1.8+
@@ -3924,7 +3791,18 @@ var __module0__ = (function(__dependency1__, __dependency2__, __dependency3__, _
 //							 elements and dynamically sized elements.
 // 1.x - (2006-12-31 - 2010-07-31) Initial version, hosted at googlecode, deprecated
 
-(function($,window,undefined){
+(function (factory) {
+  if ( typeof define === 'function' && define.amd ) {
+      // AMD. Register as an anonymous module.
+      define(['jquery'], factory);
+  } else if (typeof exports === 'object') {
+      // Node/CommonJS style for Browserify
+      module.exports = factory(require('jquery'));
+  } else {
+      // Browser globals
+      factory(jQuery);
+  }
+}(function($){
 
 	$.fn.jScrollPane = function(settings)
 	{
@@ -3941,12 +3819,17 @@ var __module0__ = (function(__dependency1__, __dependency2__, __dependency3__, _
 				originalElement = elem.clone(false, false).empty(),
 				mwEvent = $.fn.mwheelIntent ? 'mwheelIntent.jsp' : 'mousewheel.jsp';
 
-			originalPadding = elem.css('paddingTop') + ' ' +
-								elem.css('paddingRight') + ' ' +
-								elem.css('paddingBottom') + ' ' +
-								elem.css('paddingLeft');
-			originalPaddingTotalWidth = (parseInt(elem.css('paddingLeft'), 10) || 0) +
-										(parseInt(elem.css('paddingRight'), 10) || 0);
+			if (elem.css('box-sizing') === 'border-box') {
+				originalPadding = 0;
+				originalPaddingTotalWidth = 0;
+			} else {
+				originalPadding = elem.css('paddingTop') + ' ' +
+									elem.css('paddingRight') + ' ' +
+									elem.css('paddingBottom') + ' ' +
+									elem.css('paddingLeft');
+				originalPaddingTotalWidth = (parseInt(elem.css('paddingLeft'), 10) || 0) +
+											(parseInt(elem.css('paddingRight'), 10) || 0);
+			}
 
 			function initialise(s)
 			{
@@ -3973,7 +3856,7 @@ var __module0__ = (function(__dependency1__, __dependency2__, __dependency3__, _
 					paneHeight = elem.innerHeight();
 
 					elem.width(paneWidth);
-					
+
 					pane = $('<div class="jspPane" />').css('padding', originalPadding).append(elem.children());
 					container = $('<div class="jspContainer" />')
 						.css({
@@ -3984,7 +3867,7 @@ var __module0__ = (function(__dependency1__, __dependency2__, __dependency3__, _
 
 					/*
 					// Move any margins from the first and last children up to the container so they can still
-					// collapse with neighbouring elements as they would before jScrollPane 
+					// collapse with neighbouring elements as they would before jScrollPane
 					firstChild = pane.find(':first-child');
 					lastChild = pane.find(':last-child');
 					elem.css(
@@ -4019,7 +3902,7 @@ var __module0__ = (function(__dependency1__, __dependency2__, __dependency3__, _
 						return;
 					}
 					previousContentWidth = contentWidth;
-					
+
 					pane.css('width', '');
 					elem.width(paneWidth);
 
@@ -4046,7 +3929,8 @@ var __module0__ = (function(__dependency1__, __dependency2__, __dependency3__, _
 				if (!(isScrollableH || isScrollableV)) {
 					elem.removeClass('jspScrollable');
 					pane.css({
-						top: 0,
+            top: 0,
+            left: 0,
 						width: container.width() - originalPaddingTotalWidth
 					});
 					removeMousewheel();
@@ -4074,14 +3958,14 @@ var __module0__ = (function(__dependency1__, __dependency2__, __dependency3__, _
 					initFocusHandler();
 					initMousewheel();
 					initTouch();
-					
+
 					if (settings.enableKeyboardNavigation) {
 						initKeyboardNav();
 					}
 					if (settings.clickOnTrack) {
 						initClickOnTrack();
 					}
-					
+
 					observeHash();
 					if (settings.hijackInternalLinks) {
 						hijackInternalLinks();
@@ -4342,7 +4226,7 @@ var __module0__ = (function(__dependency1__, __dependency2__, __dependency3__, _
 			function appendArrows(ele, p, a1, a2)
 			{
 				var p1 = "before", p2 = "after", aTemp;
-				
+
 				// Sniff for mac... Is there a better way to determine whether the arrows would naturally appear
 				// at the top or the bottom of the bar?
 				if (p == "os") {
@@ -4457,7 +4341,7 @@ var __module0__ = (function(__dependency1__, __dependency2__, __dependency3__, _
 						}
 					);
 				}
-				
+
 				if (isScrollableH) {
 					horizontalTrack.bind(
 						'mousedown.jsp',
@@ -4562,7 +4446,7 @@ var __module0__ = (function(__dependency1__, __dependency2__, __dependency3__, _
 				}
 
 				container.scrollTop(0);
-				verticalDragPosition = destY;
+				verticalDragPosition = destY || 0;
 
 				var isAtTop = verticalDragPosition === 0,
 					isAtBottom = verticalDragPosition == dragMaxY,
@@ -4574,7 +4458,7 @@ var __module0__ = (function(__dependency1__, __dependency2__, __dependency3__, _
 					wasAtBottom = isAtBottom;
 					elem.trigger('jsp-arrow-change', [wasAtTop, wasAtBottom, wasAtLeft, wasAtRight]);
 				}
-				
+
 				updateVerticalArrows(isAtTop, isAtBottom);
 				pane.css('top', destTop);
 				elem.trigger('jsp-scroll-y', [-destTop, isAtTop, isAtBottom]).trigger('scroll');
@@ -4609,7 +4493,7 @@ var __module0__ = (function(__dependency1__, __dependency2__, __dependency3__, _
 				}
 
 				container.scrollTop(0);
-				horizontalDragPosition = destX;
+				horizontalDragPosition = destX ||0;
 
 				var isAtLeft = horizontalDragPosition === 0,
 					isAtRight = horizontalDragPosition == dragMaxX,
@@ -4621,7 +4505,7 @@ var __module0__ = (function(__dependency1__, __dependency2__, __dependency3__, _
 					wasAtRight = isAtRight;
 					elem.trigger('jsp-arrow-change', [wasAtTop, wasAtBottom, wasAtLeft, wasAtRight]);
 				}
-				
+
 				updateHorizontalArrows(isAtLeft, isAtRight);
 				pane.css('left', destLeft);
 				elem.trigger('jsp-scroll-x', [-destLeft, isAtLeft, isAtRight]).trigger('scroll');
@@ -4671,7 +4555,7 @@ var __module0__ = (function(__dependency1__, __dependency2__, __dependency3__, _
 
 				container.scrollTop(0);
 				container.scrollLeft(0);
-				
+
 				// loop through parents adding the offset top of any elements that are relatively positioned between
 				// the focused element and the jspPane so we can get the true distance from the top
 				// of the focused element to the top of the scrollpane...
@@ -4688,14 +4572,14 @@ var __module0__ = (function(__dependency1__, __dependency2__, __dependency3__, _
 				viewportTop = contentPositionY();
 				maxVisibleEleTop = viewportTop + paneHeight;
 				if (eleTop < viewportTop || stickToTop) { // element is above viewport
-					destY = eleTop - settings.verticalGutter;
+					destY = eleTop - settings.horizontalGutter;
 				} else if (eleTop + eleHeight > maxVisibleEleTop) { // element is below viewport
-					destY = eleTop - paneHeight + eleHeight + settings.verticalGutter;
+					destY = eleTop - paneHeight + eleHeight + settings.horizontalGutter;
 				}
-				if (destY) {
+				if (!isNaN(destY)) {
 					scrollToY(destY, animate);
 				}
-				
+
 				viewportLeft = contentPositionX();
 	            maxVisibleEleLeft = viewportLeft + paneWidth;
 	            if (eleLeft < viewportLeft || stickToTop) { // element is to the left of viewport
@@ -4703,7 +4587,7 @@ var __module0__ = (function(__dependency1__, __dependency2__, __dependency3__, _
 	            } else if (eleLeft + eleWidth > maxVisibleEleLeft) { // element is to the right viewport
 	                destX = eleLeft - paneWidth + eleWidth + settings.horizontalGutter;
 	            }
-	            if (destX) {
+	            if (!isNaN(destX)) {
 	                scrollToX(destX, animate);
 	            }
 
@@ -4736,8 +4620,12 @@ var __module0__ = (function(__dependency1__, __dependency2__, __dependency3__, _
 				container.unbind(mwEvent).bind(
 					mwEvent,
 					function (event, delta, deltaX, deltaY) {
-						var dX = horizontalDragPosition, dY = verticalDragPosition;
-						jsp.scrollBy(deltaX * settings.mouseWheelSpeed, -deltaY * settings.mouseWheelSpeed, false);
+
+                        if (!horizontalDragPosition) horizontalDragPosition = 0;
+                        if (!verticalDragPosition) verticalDragPosition = 0;
+
+						var dX = horizontalDragPosition, dY = verticalDragPosition, factor = event.deltaFactor || settings.mouseWheelSpeed;
+						jsp.scrollBy(deltaX * factor, -deltaY * factor, false);
 						// return true if there was no movement so rest of screen can scroll
 						return dX == horizontalDragPosition && dY == verticalDragPosition;
 					}
@@ -4769,21 +4657,22 @@ var __module0__ = (function(__dependency1__, __dependency2__, __dependency3__, _
 			{
 				pane.find(':input,a').unbind('focus.jsp');
 			}
-			
+
 			function initKeyboardNav()
 			{
 				var keyDown, elementHasScrolled, validParents = [];
 				isScrollableH && validParents.push(horizontalBar[0]);
 				isScrollableV && validParents.push(verticalBar[0]);
-				
+
 				// IE also focuses elements that don't have tabindex set.
-				pane.focus(
+				pane.bind(
+					'focus.jsp',
 					function()
 					{
 						elem.focus();
 					}
 				);
-				
+
 				elem.attr('tabindex', 0)
 					.unbind('keydown.jsp keypress.jsp')
 					.bind(
@@ -4828,7 +4717,7 @@ var __module0__ = (function(__dependency1__, __dependency2__, __dependency3__, _
 							return !elementHasScrolled;
 						}
 					);
-				
+
 				if (settings.hideFocus) {
 					elem.css('outline', 'none');
 					if ('hideFocus' in container[0]){
@@ -4840,7 +4729,7 @@ var __module0__ = (function(__dependency1__, __dependency2__, __dependency3__, _
 						elem.attr('hideFocus', false);
 					}
 				}
-				
+
 				function keyDownHandler()
 				{
 					var dX = horizontalDragPosition, dY = verticalDragPosition;
@@ -4870,12 +4759,14 @@ var __module0__ = (function(__dependency1__, __dependency2__, __dependency3__, _
 					return elementHasScrolled;
 				}
 			}
-			
+
 			function removeKeyboardNav()
 			{
 				elem.attr('tabindex', '-1')
 					.removeAttr('tabindex')
 					.unbind('keydown.jsp keypress.jsp');
+
+				pane.unbind('.jsp');
 			}
 
 			function observeHash()
@@ -4982,7 +4873,7 @@ var __module0__ = (function(__dependency1__, __dependency2__, __dependency3__, _
 					event.preventDefault();
 				});
 			}
-			
+
 			// Init touch on iPad, iPhone, iPod, Android
 			function initTouch()
 			{
@@ -4992,7 +4883,7 @@ var __module0__ = (function(__dependency1__, __dependency2__, __dependency3__, _
 					touchStartY,
 					moved,
 					moving = false;
-  
+
 				container.unbind('touchstart.jsp touchmove.jsp touchend.jsp click.jsp-touchclick').bind(
 					'touchstart.jsp',
 					function(e)
@@ -5012,14 +4903,14 @@ var __module0__ = (function(__dependency1__, __dependency2__, __dependency3__, _
 						if(!moving) {
 							return;
 						}
-						
+
 						var touchPos = ev.originalEvent.touches[0],
 							dX = horizontalDragPosition, dY = verticalDragPosition;
-						
+
 						jsp.scrollTo(startX + touchStartX - touchPos.pageX, startY + touchStartY - touchPos.pageY);
-						
+
 						moved = moved || Math.abs(touchStartX - touchPos.pageX) > 5 || Math.abs(touchStartY - touchPos.pageY) > 5;
-						
+
 						// return true if there was no movement so rest of screen can scroll
 						return dX == horizontalDragPosition && dY == verticalDragPosition;
 					}
@@ -5043,11 +4934,12 @@ var __module0__ = (function(__dependency1__, __dependency2__, __dependency3__, _
 					}
 				);
 			}
-			
+
 			function destroy(){
 				var currentY = contentPositionY(),
 					currentX = contentPositionX();
 				elem.removeClass('jspScrollable').unbind('.jsp');
+				pane.unbind('.jsp');
 				elem.replaceWith(originalElement.append(pane.children()));
 				originalElement.scrollTop(currentY);
 				originalElement.scrollLeft(currentX);
@@ -5240,13 +5132,13 @@ var __module0__ = (function(__dependency1__, __dependency2__, __dependency3__, _
 					}
 				}
 			);
-			
+
 			initialise(s);
 		}
 
 		// Pluginifying code...
 		settings = $.extend({}, $.fn.jScrollPane.defaults, settings);
-		
+
 		// Apply default speed
 		$.each(['arrowButtonSpeed', 'trackClickSpeed', 'keyboardSpeed'], function() {
 			settings[this] = settings[this] || settings.speed;
@@ -5302,19 +5194,14 @@ var __module0__ = (function(__dependency1__, __dependency2__, __dependency3__, _
 		scrollPagePercent			: .8		// Percent of visible area scrolled when pageUp/Down or track area pressed
 	};
 
-})(jQuery,this);
+}));
 
-
-/*! Copyright (c) 2013 Brandon Aaron (http://brandonaaron.net)
- * Licensed under the MIT License (LICENSE.txt).
+/*!
+ * jQuery Mousewheel 3.1.12
  *
- * Thanks to: http://adomas.org/javascript-mouse-wheel/ for some pointers.
- * Thanks to: Mathias Bank(http://www.mathias-bank.de) for a scope bug fix.
- * Thanks to: Seamus Leahy for adding deltaX and deltaY
- *
- * Version: 3.1.3
- *
- * Requires: 1.2.2+
+ * Copyright 2014 jQuery Foundation and other contributors
+ * Released under the MIT license.
+ * http://jquery.org/license
  */
 
 (function (factory) {
@@ -5330,9 +5217,11 @@ var __module0__ = (function(__dependency1__, __dependency2__, __dependency3__, _
     }
 }(function ($) {
 
-    var toFix = ['wheel', 'mousewheel', 'DOMMouseScroll', 'MozMousePixelScroll'];
-    var toBind = 'onwheel' in document || document.documentMode >= 9 ? ['wheel'] : ['mousewheel', 'DomMouseScroll', 'MozMousePixelScroll'];
-    var lowestDelta, lowestDeltaXY;
+    var toFix  = ['wheel', 'mousewheel', 'DOMMouseScroll', 'MozMousePixelScroll'],
+        toBind = ( 'onwheel' in document || document.documentMode >= 9 ) ?
+                    ['wheel'] : ['mousewheel', 'DomMouseScroll', 'MozMousePixelScroll'],
+        slice  = Array.prototype.slice,
+        nullLowestDeltaTimeout, lowestDelta;
 
     if ( $.event.fixHooks ) {
         for ( var i = toFix.length; i; ) {
@@ -5340,7 +5229,9 @@ var __module0__ = (function(__dependency1__, __dependency2__, __dependency3__, _
         }
     }
 
-    $.event.special.mousewheel = {
+    var special = $.event.special.mousewheel = {
+        version: '3.1.12',
+
         setup: function() {
             if ( this.addEventListener ) {
                 for ( var i = toBind.length; i; ) {
@@ -5349,6 +5240,9 @@ var __module0__ = (function(__dependency1__, __dependency2__, __dependency3__, _
             } else {
                 this.onmousewheel = handler;
             }
+            // Store the line height and page height for this particular element
+            $.data(this, 'mousewheel-line-height', special.getLineHeight(this));
+            $.data(this, 'mousewheel-page-height', special.getPageHeight(this));
         },
 
         teardown: function() {
@@ -5359,66 +5253,167 @@ var __module0__ = (function(__dependency1__, __dependency2__, __dependency3__, _
             } else {
                 this.onmousewheel = null;
             }
+            // Clean up the data we added to the element
+            $.removeData(this, 'mousewheel-line-height');
+            $.removeData(this, 'mousewheel-page-height');
+        },
+
+        getLineHeight: function(elem) {
+            var $elem = $(elem),
+                $parent = $elem['offsetParent' in $.fn ? 'offsetParent' : 'parent']();
+            if (!$parent.length) {
+                $parent = $('body');
+            }
+            return parseInt($parent.css('fontSize'), 10) || parseInt($elem.css('fontSize'), 10) || 16;
+        },
+
+        getPageHeight: function(elem) {
+            return $(elem).height();
+        },
+
+        settings: {
+            adjustOldDeltas: true, // see shouldAdjustOldDeltas() below
+            normalizeOffset: true  // calls getBoundingClientRect for each event
         }
     };
 
     $.fn.extend({
         mousewheel: function(fn) {
-            return fn ? this.bind("mousewheel", fn) : this.trigger("mousewheel");
+            return fn ? this.bind('mousewheel', fn) : this.trigger('mousewheel');
         },
 
         unmousewheel: function(fn) {
-            return this.unbind("mousewheel", fn);
+            return this.unbind('mousewheel', fn);
         }
     });
 
 
     function handler(event) {
-        var orgEvent = event || window.event,
-            args = [].slice.call(arguments, 1),
-            delta = 0,
-            deltaX = 0,
-            deltaY = 0,
-            absDelta = 0,
-            absDeltaXY = 0,
-            fn;
+        var orgEvent   = event || window.event,
+            args       = slice.call(arguments, 1),
+            delta      = 0,
+            deltaX     = 0,
+            deltaY     = 0,
+            absDelta   = 0,
+            offsetX    = 0,
+            offsetY    = 0;
         event = $.event.fix(orgEvent);
-        event.type = "mousewheel";
+        event.type = 'mousewheel';
 
         // Old school scrollwheel delta
-        if ( orgEvent.wheelDelta ) { delta = orgEvent.wheelDelta; }
-        if ( orgEvent.detail )     { delta = orgEvent.detail * -1; }
+        if ( 'detail'      in orgEvent ) { deltaY = orgEvent.detail * -1;      }
+        if ( 'wheelDelta'  in orgEvent ) { deltaY = orgEvent.wheelDelta;       }
+        if ( 'wheelDeltaY' in orgEvent ) { deltaY = orgEvent.wheelDeltaY;      }
+        if ( 'wheelDeltaX' in orgEvent ) { deltaX = orgEvent.wheelDeltaX * -1; }
+
+        // Firefox < 17 horizontal scrolling related to DOMMouseScroll event
+        if ( 'axis' in orgEvent && orgEvent.axis === orgEvent.HORIZONTAL_AXIS ) {
+            deltaX = deltaY * -1;
+            deltaY = 0;
+        }
+
+        // Set delta to be deltaY or deltaX if deltaY is 0 for backwards compatabilitiy
+        delta = deltaY === 0 ? deltaX : deltaY;
 
         // New school wheel delta (wheel event)
-        if ( orgEvent.deltaY ) {
+        if ( 'deltaY' in orgEvent ) {
             deltaY = orgEvent.deltaY * -1;
             delta  = deltaY;
         }
-        if ( orgEvent.deltaX ) {
+        if ( 'deltaX' in orgEvent ) {
             deltaX = orgEvent.deltaX;
-            delta  = deltaX * -1;
+            if ( deltaY === 0 ) { delta  = deltaX * -1; }
         }
 
-        // Webkit
-        if ( orgEvent.wheelDeltaY !== undefined ) { deltaY = orgEvent.wheelDeltaY; }
-        if ( orgEvent.wheelDeltaX !== undefined ) { deltaX = orgEvent.wheelDeltaX * -1; }
+        // No change actually happened, no reason to go any further
+        if ( deltaY === 0 && deltaX === 0 ) { return; }
 
-        // Look for lowest delta to normalize the delta values
-        absDelta = Math.abs(delta);
-        if ( !lowestDelta || absDelta < lowestDelta ) { lowestDelta = absDelta; }
-        absDeltaXY = Math.max(Math.abs(deltaY), Math.abs(deltaX));
-        if ( !lowestDeltaXY || absDeltaXY < lowestDeltaXY ) { lowestDeltaXY = absDeltaXY; }
+        // Need to convert lines and pages to pixels if we aren't already in pixels
+        // There are three delta modes:
+        //   * deltaMode 0 is by pixels, nothing to do
+        //   * deltaMode 1 is by lines
+        //   * deltaMode 2 is by pages
+        if ( orgEvent.deltaMode === 1 ) {
+            var lineHeight = $.data(this, 'mousewheel-line-height');
+            delta  *= lineHeight;
+            deltaY *= lineHeight;
+            deltaX *= lineHeight;
+        } else if ( orgEvent.deltaMode === 2 ) {
+            var pageHeight = $.data(this, 'mousewheel-page-height');
+            delta  *= pageHeight;
+            deltaY *= pageHeight;
+            deltaX *= pageHeight;
+        }
 
-        // Get a whole value for the deltas
-        fn = delta > 0 ? 'floor' : 'ceil';
-        delta  = Math[fn](delta / lowestDelta);
-        deltaX = Math[fn](deltaX / lowestDeltaXY);
-        deltaY = Math[fn](deltaY / lowestDeltaXY);
+        // Store lowest absolute delta to normalize the delta values
+        absDelta = Math.max( Math.abs(deltaY), Math.abs(deltaX) );
+
+        if ( !lowestDelta || absDelta < lowestDelta ) {
+            lowestDelta = absDelta;
+
+            // Adjust older deltas if necessary
+            if ( shouldAdjustOldDeltas(orgEvent, absDelta) ) {
+                lowestDelta /= 40;
+            }
+        }
+
+        // Adjust older deltas if necessary
+        if ( shouldAdjustOldDeltas(orgEvent, absDelta) ) {
+            // Divide all the things by 40!
+            delta  /= 40;
+            deltaX /= 40;
+            deltaY /= 40;
+        }
+
+        // Get a whole, normalized value for the deltas
+        delta  = Math[ delta  >= 1 ? 'floor' : 'ceil' ](delta  / lowestDelta);
+        deltaX = Math[ deltaX >= 1 ? 'floor' : 'ceil' ](deltaX / lowestDelta);
+        deltaY = Math[ deltaY >= 1 ? 'floor' : 'ceil' ](deltaY / lowestDelta);
+
+        // Normalise offsetX and offsetY properties
+        if ( special.settings.normalizeOffset && this.getBoundingClientRect ) {
+            var boundingRect = this.getBoundingClientRect();
+            offsetX = event.clientX - boundingRect.left;
+            offsetY = event.clientY - boundingRect.top;
+        }
+
+        // Add information to the event object
+        event.deltaX = deltaX;
+        event.deltaY = deltaY;
+        event.deltaFactor = lowestDelta;
+        event.offsetX = offsetX;
+        event.offsetY = offsetY;
+        // Go ahead and set deltaMode to 0 since we converted to pixels
+        // Although this is a little odd since we overwrite the deltaX/Y
+        // properties with normalized deltas.
+        event.deltaMode = 0;
 
         // Add event and delta to the front of the arguments
         args.unshift(event, delta, deltaX, deltaY);
 
+        // Clearout lowestDelta after sometime to better
+        // handle multiple device types that give different
+        // a different lowestDelta
+        // Ex: trackpad = 3 and mouse wheel = 120
+        if (nullLowestDeltaTimeout) { clearTimeout(nullLowestDeltaTimeout); }
+        nullLowestDeltaTimeout = setTimeout(nullLowestDelta, 200);
+
         return ($.event.dispatch || $.event.handle).apply(this, args);
+    }
+
+    function nullLowestDelta() {
+        lowestDelta = null;
+    }
+
+    function shouldAdjustOldDeltas(orgEvent, absDelta) {
+        // If this is an older event and the delta is divisable by 120,
+        // then we are assuming that the browser is treating this as an
+        // older mouse wheel event and that we should divide the deltas
+        // by 40 to try and get a more usable deltaFactor.
+        // Side note, this actually impacts the reported scroll distance
+        // in older browsers and can cause scrolling to be slower than native.
+        // Turn this off by setting $.event.special.mousewheel.settings.adjustOldDeltas to false.
+        return special.settings.adjustOldDeltas && orgEvent.type === 'mousewheel' && absDelta % 120 === 0;
     }
 
 }));
