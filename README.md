@@ -1,5 +1,10 @@
 # Star-Citizen-WebGL-Map
 
+[![Code Climate](https://codeclimate.com/github/SakyaStelios/Titan/badges/gpa.svg)](https://codeclimate.com/github/SakyaStelios/Titan)
+[![devDependency Status](https://david-dm.org/SakyaStelios/Titan/dev-status.svg)](https://david-dm.org/SakyaStelios/Titan#info=devDependencies)
+[![Build Status](https://travis-ci.org/SakyaStelios/Titan.svg?branch=master)](https://travis-ci.org/SakyaStelios/Titan)
+
+
 A WebGL version of the (reverse engineered) universe map for the upcoming game
 [Star Citizen](https://robertsspaceindustries.com/about-the-game), inspired by
 the [Star Map WIP video](https://robertsspaceindustries.com/comm-link/engineering/13109-Star-Map-Demo)
