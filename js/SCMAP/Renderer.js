@@ -143,6 +143,142 @@ SCMAP.Renderer.prototype = {
    }
 };
 
+function buildGalaxy() {
+
+    /*
+     * Generate a procedural Galaxy (https://github.com/robertkleffner/html5-galaxy)
+     * Code updated for THREE r68
+     */
+    var outerRing = new THREE.Geometry();
+    var outerClouds = new THREE.Geometry();
+    var innerRing = new THREE.Geometry();
+    var innerClouds = new THREE.Geometry();
+    var outerStars = new THREE.Geometry();
+    var starMaterial = new THREE.PointCloudMaterial({
+        size: 20,
+        map: THREE.ImageUtils.loadTexture(
+            "images/galactic_stars.png"
+        ),
+        blending: THREE.AdditiveBlending,
+        vertexColors: true,
+        transparent: true,
+        depthTest: false
+    });
+    starMaterial.color.setHSL(1.0, 0.0, 1.0);
+    var cloudMaterial = new THREE.PointCloudMaterial({
+        size: 300,
+        map: THREE.ImageUtils.loadTexture(
+            "images/galactic_clouds.png"
+        ),
+        blending: THREE.AdditiveBlending,
+        vertexColors: true,
+        transparent: true,
+        depthTest: false
+    });
+    // Creating individual particles
+    var color = [];
+    for (var p = 0; p < 1800; p++) {
+        var angle = Math.random() * Math.PI * 2;
+        var radius = Math.random() * 200 + 400;
+        var pX = Math.cos(angle) * radius,
+            pY = Math.random() * 70 - 35,
+            pZ = Math.sin(angle) * radius,
+            skparticle = new THREE.Vector3(pX, pY, pZ);
+        outerRing.vertices.push(skparticle);
+
+        var h = Math.random() * (291 - 185) + 185,
+            s = Math.random() * (66 - 34) + 34,
+            v = Math.random() * (100 - 72) + 72;
+        color[p] = new THREE.Color(0xffffff);
+        color[p].setHSL(h / 360, s / 100, v / 100);
+    }
+    outerRing.colors = color;
+
+    color = [];
+    for (var sk1 = 0; sk1 < 5000; sk1++) {
+        var angle1 = Math.random() * Math.PI * 2;
+        var radius1 = Math.random() * 350 + 1;
+        var pX1 = Math.cos(angle1) * radius1,
+            pY1 = Math.random() * 200 * (1 / radius1) * (Math.random() > 0.5 ? 1 : -1),
+            pZ1 = Math.sin(angle1) * radius1,
+            skparticle1 = new THREE.Vector3(pX1, pY1, pZ1);
+        innerRing.vertices.push(skparticle1);
+
+        var h1 = Math.random() * (291 - 185) + 185,
+            s1 = Math.random() * (66 - 34) + 34,
+            v1 = Math.random() * (100 - 72) + 72;
+        color[sk1] = new THREE.Color(0xffffff);
+        color[sk1].setHSL(h1 / 360, s1 / 100, v1 / 100);
+    }
+    innerRing.colors = color;
+
+    color = [];
+    for (var sk2 = 0; sk2 < 200; sk2++) {
+        var angle2 = Math.random() * Math.PI * 2;
+        var radius2 = Math.random() * 350 + 1;
+        var pX2 = Math.cos(angle2) * radius2,
+            pY2 = Math.random() * 200 * (1 / radius2) * (Math.random() > 0.5 ? 1 : -1),
+            pZ2 = Math.sin(angle2) * radius2,
+            skparticle2 = new THREE.Vector3(pX2, pY2, pZ2);
+        innerClouds.vertices.push(skparticle2);
+
+        var h2 = Math.random() * (291 - 185) + 185,
+            s2 = Math.random() * (66 - 34) + 34,
+            v2 = Math.random() * (100 - 72) + 72;
+        color[sk2] = new THREE.Color(0xffffff);
+        color[sk2].setHSL(h2 / 360, s2 / 100, v2 / 100);
+    }
+    innerClouds.colors = color;
+
+    color = [];
+    for (var sk3 = 0; sk3 < 200; sk3++) {
+        var angle3 = Math.random() * Math.PI * 2;
+        var radius3 = Math.random() * 200 + 400;
+        var pX3 = Math.cos(angle3) * radius3,
+            pY3 = Math.random() * 70 - 35,
+            pZ3 = Math.sin(angle3) * radius3,
+            skparticle3 = new THREE.Vector3(pX3, pY3, pZ3);
+        outerClouds.vertices.push(skparticle3);
+
+        var h3 = Math.random() * (291 - 185) + 185,
+            s3 = Math.random() * (66 - 34) + 34,
+            v3 = Math.random() * (100 - 72) + 72;
+        color[sk3] = new THREE.Color(0xffffff);
+        color[sk3].setHSL(h3 / 360, s3 / 100, v3 / 100);
+    }
+    outerClouds.colors = color;
+
+    color = [];
+    for (var sk4 = 0; sk4 < 1000; sk4++) {
+
+        var radius5 = Math.random() * 1000 + 1000;
+        var z = Math.random() * (2 * radius5) - radius5;
+        var phi = Math.random() * Math.PI * 2;
+        var theta = Math.asin(z / radius5);
+
+        var pX5 = Math.cos(theta) * Math.cos(phi) * radius5,
+            pY5 = Math.cos(theta) * Math.sin(phi) * radius5,
+            pZ5 = z,
+            skparticle4 = new THREE.Vector3(pX5, pY5, pZ5);
+        outerStars.vertices.push(skparticle4);
+
+        color[sk4] = new THREE.Color(0xffffff);
+    }
+    outerStars.colors = color;
+
+    var outerSystem = new THREE.PointCloud(outerRing, starMaterial);
+    var innerSystem = new THREE.PointCloud(innerRing, starMaterial);
+    var cloudSystem = new THREE.PointCloud(innerClouds, cloudMaterial);
+    var cloudSystem2 = new THREE.PointCloud(outerClouds, cloudMaterial);
+    var starSystem = new THREE.PointCloud(outerStars, starMaterial);
+
+    scene.add(outerSystem);
+    scene.add(innerSystem);
+    scene.add(cloudSystem);
+    scene.add(cloudSystem2);
+    scene.add(starSystem);
+}
+
 function smokeTest () {
    var smokeParticles = new THREE.Geometry();
    for (i = 0; i < 25; i++) {
