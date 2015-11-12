@@ -4157,6 +4157,14 @@ function buildGalaxy() {
     scene.add(starSystem);
 }
 
+function buildGalaxyPlane(){
+  var planeGeometry = new THREE.PlaneGeometry( 300, 300 );
+  var planeMaterial = new THREE.MeshBasicMaterial( { color: 0x0000ff, side: THREE.DoubleSide } );
+  var planeMesh = new THREE.Mesh( planeGeometry, planeMaterial );
+  planeMesh.rotation.x = (3 * Math.PI) / 2;
+  scene.add( planeMesh );
+}
+
 function smokeTest () {
    var smokeParticles = new THREE.Geometry();
    for (i = 0; i < 25; i++) {
