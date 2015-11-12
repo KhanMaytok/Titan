@@ -37,7 +37,7 @@ module.exports = function(grunt) {
           'js/three.js/examples/js/postprocessing/RenderPass.js',
           'js/three.js/examples/js/postprocessing/ShaderPass.js',
           'js/three.js/examples/js/postprocessing/BloomPass.js',
-          'js/three.js/examples/js/Detector.js',
+          'js/three.js/examples/js/Detector.js'
         ],
         dest: 'js/extlibs/three-js-examples.js'
       },
@@ -74,7 +74,7 @@ module.exports = function(grunt) {
           stripBanners: false
         },
         src: [
-          'js/data/lists.js',
+          'js/data/lists.js'
         ],
         dest: 'build/<%= pkg.name %>-seed-data.js'
       },
@@ -152,7 +152,7 @@ module.exports = function(grunt) {
 
       jshint: {
          beforeconcat: ['js/main.js','js/SCMAP.js','js/SCMAP/**/*.js'],
-         afterconcat: ['<%= concat.scmap.dest %>'],
+         afterconcat: ['<%= concat.scmap.dest %>']
       },
 
       watch: {
