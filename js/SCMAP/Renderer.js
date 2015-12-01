@@ -143,6 +143,60 @@ SCMAP.Renderer.prototype = {
    }
 };
 
+function brillitos() {
+    var particleCount = 1800,
+        particles = new THREE.Geometry(),
+
+        pMaterial = new THREE.PointCloudMaterial({
+            color: 0xFFFFFF,
+            size: 20,
+            map: THREE.ImageUtils.loadTexture(
+                "images/particle.png"
+            ),
+            blending: THREE.AdditiveBlending,
+            transparent: true
+        });
+
+
+    // now create the individual particles
+    for (var p = 0; p < particleCount; p++) {
+
+        // create a particle with random
+        // position values, -250 -> 250
+        var pX = Math.random() * 500 - 250,
+            pY = Math.random() * 500 - 250,
+            pZ = Math.random() * 500 - 250,
+            particle = new THREE.Vector3(pX, pY, pZ);
+
+        // add it to the geometry
+        particles.vertices.push(particle);
+    }
+
+    // create the particle system
+    var particleSystem = new THREE.PointCloud(
+        particles,
+        pMaterial);
+
+    particleSystem.sortParticles = true;
+
+    // add it to the scene
+    scene.add(particleSystem);
+}
+
+function generateGalaxy() {
+    //Generating the plane
+    var planeGeometry = new THREE.PlaneGeometry(1500, 1500);
+    var planeMaterial = new THREE.MeshBasicMaterial({
+        side: THREE.DoubleSide,
+        map: THREE.ImageUtils.loadTexture("images/Milky_Way_2005.jpg")
+    });
+    var planeMesh = new THREE.Mesh(planeGeometry, planeMaterial);
+    planeMesh.rotation.x = (3 * Math.PI) / 2;
+    planeMesh.position.x = 100;
+    planeMesh.position.y = -0.5;
+    scene.add(planeMesh);
+}
+
 function buildGalaxy() {
 
     /*
@@ -277,14 +331,6 @@ function buildGalaxy() {
     scene.add(cloudSystem);
     scene.add(cloudSystem2);
     scene.add(starSystem);
-}
-
-function buildGalaxyPlane(){
-  var planeGeometry = new THREE.PlaneGeometry( 300, 300 );
-  var planeMaterial = new THREE.MeshBasicMaterial( { color: 0x0000ff, side: THREE.DoubleSide } );
-  var planeMesh = new THREE.Mesh( planeGeometry, planeMaterial );
-  planeMesh.rotation.x = (3 * Math.PI) / 2;
-  scene.add( planeMesh );
 }
 
 function smokeTest () {

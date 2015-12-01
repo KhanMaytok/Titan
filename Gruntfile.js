@@ -156,9 +156,9 @@ module.exports = function(grunt) {
       },
 
       watch: {
-         scmap: {
-            files: ['<%= concat.scmap.src %>'],
-            tasks: ['dist-scmap']
+         makeall: {
+            files: ['js/SCMAP/Renderer.js'],
+            tasks: ['default']
          },
          scdata: {
             files: ['<%= concat.scdata.src %>'],
