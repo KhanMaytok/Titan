@@ -8,7 +8,7 @@ module.exports = function(grunt) {
               ' * <%= pkg.name %> v<%= pkg.version %> by Lianna Eeftinck\n' +
               ' * Copyright <%= grunt.template.today("yyyy") %> <%= pkg.author %>\n' +
               ' * https://github.com/Leeft/Star-Citizen-WebGL-Map\n' +
-              ' * Licensed under <%= _.pluck(pkg.licenses, "url").join(", ") %>\n' +
+              ' * Licensed under <%= _.map(pkg.licenses, "url").join(", ") %>\n' +
               ' */\n',
 
     jqueryCheck: 'if (typeof jQuery === "undefined") { throw new Error("<%= pkg.name %> requires jQuery"); }\n',

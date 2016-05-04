@@ -512,7 +512,7 @@ SCMAP.Faction.prototype = {
    constructor: SCMAP.Faction,
 
    claim: function ( system ) {
-      if ( ! system instanceof SCMAP.System ) {
+      if ( system instanceof SCMAP.System === false ) {
          new Error( "A faction can only claim ownership over a system" );
          return;
       }
@@ -521,7 +521,7 @@ SCMAP.Faction.prototype = {
    },
 
    claimed: function ( system ) {
-      if ( ! system instanceof SCMAP.System ) {
+      if ( system instanceof SCMAP.System === false ) {
          new Error( "A faction can only test ownership over a system" );
          return;
       }
@@ -1948,7 +1948,7 @@ SCMAP.Route.prototype = {
    // colour of the given point
    alphaOfSystem: function alphaOfSystem( system ) {
       // TODO: Combine with indexOfCurrentRoute code
-      if ( ! system instanceof SCMAP.System ) {
+      if ( system instanceof SCMAP.System === false ) {
          return 0;
       }
 
@@ -1972,7 +1972,7 @@ SCMAP.Route.prototype = {
    },
 
    indexOfCurrentRoute: function indexOfCurrentRoute( system ) {
-      if ( ! system instanceof SCMAP.System ) {
+      if ( system instanceof SCMAP.System === false ) {
          return;
       }
 
