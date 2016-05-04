@@ -287,7 +287,7 @@ SCMAP.Route.prototype = {
    // colour of the given point
    alphaOfSystem: function alphaOfSystem( system ) {
       // TODO: Combine with indexOfCurrentRoute code
-      if ( ! system instanceof SCMAP.System ) {
+      if ( system instanceof SCMAP.System === false ) {
          return 0;
       }
 
@@ -311,7 +311,7 @@ SCMAP.Route.prototype = {
    },
 
    indexOfCurrentRoute: function indexOfCurrentRoute( system ) {
-      if ( ! system instanceof SCMAP.System ) {
+      if ( system instanceof SCMAP.System === false ) {
          return;
       }
 
