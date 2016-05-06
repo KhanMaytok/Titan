@@ -4558,5 +4558,41 @@
         "systemId": 29,
         "ueeStrategicValue": 9,
         "uuid": "C9DCD1C6-3060-11E3-8A92-870BF127"
+    },
+    "Laverna": {
+        "blackMarket": [20],
+        "color": "yellow",
+        "coords": [0, 0, 0],
+        "crimeLevel": -1,
+        "export": [20],
+        "factionId": "UEE",
+        "hasWarning": true,
+        "import": [],
+        "info": [{
+            "added": "2015-01-01T10:38:28+0000",
+            "addedBy": {
+                "handle": "Shiari",
+                "moniker": "Daughter of Sol",
+                "userId": 1
+            },
+            "blob": "##Unknown System\n\nLocated near to the galactic core black hole\n\n![Black Hole image](http://www.lastwordonnothing.com/wp-content/uploads/2014/12/Interstellar-has-the-most-realistic-Black-Hole-ever-Interstellar-has-the-most-realistic-Black-Hole-ever-1-copy.jpg)",
+            "id": 667,
+            "lastUpdated": "2014-06-25T18:09:28+0000",
+            "lastUpdatedBy": null,
+            "source": "",
+            "systemId": 667
+        }],
+        "isMajorTradeHub": false,
+        "isOffLimits": true,
+        "lastUpdated": "2014-06-25T18:51:43+0000",
+        "name": "Laverna",
+        "nickname": "",
+        "planets": [],
+        "poi": [],
+        "size": "medium",
+        "status": "known",
+        "systemId": 667,
+        "ueeStrategicValue": 5,
+        "uuid": "C2AF42EE-3060-11E3-8A92-870BF128"
     }
 }

@@ -1,6 +1,6 @@
 /*!
  * starcitizen-webgl-map v0.9.0 by Lianna Eeftinck
- * Copyright 2015 Lianna Eeftinck
+ * Copyright 2016 Lianna Eeftinck
  * https://github.com/Leeft/Star-Citizen-WebGL-Map
  * Licensed under http://opensource.org/licenses/MIT
  */
@@ -512,7 +512,7 @@ SCMAP.Faction.prototype = {
    constructor: SCMAP.Faction,
 
    claim: function ( system ) {
-      if ( ! system instanceof SCMAP.System ) {
+      if ( system instanceof SCMAP.System === false ) {
          new Error( "A faction can only claim ownership over a system" );
          return;
       }
@@ -521,7 +521,7 @@ SCMAP.Faction.prototype = {
    },
 
    claimed: function ( system ) {
-      if ( ! system instanceof SCMAP.System ) {
+      if ( system instanceof SCMAP.System === false ) {
          new Error( "A faction can only test ownership over a system" );
          return;
       }
@@ -1948,7 +1948,7 @@ SCMAP.Route.prototype = {
    // colour of the given point
    alphaOfSystem: function alphaOfSystem( system ) {
       // TODO: Combine with indexOfCurrentRoute code
-      if ( ! system instanceof SCMAP.System ) {
+      if ( system instanceof SCMAP.System === false ) {
          return 0;
       }
 
@@ -1972,7 +1972,7 @@ SCMAP.Route.prototype = {
    },
 
    indexOfCurrentRoute: function indexOfCurrentRoute( system ) {
-      if ( ! system instanceof SCMAP.System ) {
+      if ( system instanceof SCMAP.System === false ) {
          return;
       }
 
@@ -4021,6 +4021,60 @@ SCMAP.Renderer.prototype = {
    }
 };
 
+function brillitos() {
+    var particleCount = 1800,
+        particles = new THREE.Geometry(),
+
+        pMaterial = new THREE.PointCloudMaterial({
+            color: 0xFFFFFF,
+            size: 20,
+            map: THREE.ImageUtils.loadTexture(
+                "images/particle.png"
+            ),
+            blending: THREE.AdditiveBlending,
+            transparent: true
+        });
+
+
+    // now create the individual particles
+    for (var p = 0; p < particleCount; p++) {
+
+        // create a particle with random
+        // position values, -250 -> 250
+        var pX = Math.random() * 500 - 250,
+            pY = Math.random() * 500 - 250,
+            pZ = Math.random() * 500 - 250,
+            particle = new THREE.Vector3(pX, pY, pZ);
+
+        // add it to the geometry
+        particles.vertices.push(particle);
+    }
+
+    // create the particle system
+    var particleSystem = new THREE.PointCloud(
+        particles,
+        pMaterial);
+
+    particleSystem.sortParticles = true;
+
+    // add it to the scene
+    scene.add(particleSystem);
+}
+
+function generateGalaxy() {
+    //Generating the plane
+    var planeGeometry = new THREE.PlaneGeometry(1500, 1500);
+    var planeMaterial = new THREE.MeshBasicMaterial({
+        side: THREE.DoubleSide,
+        map: THREE.ImageUtils.loadTexture("images/Milky_Way_2005.jpg")
+    });
+    var planeMesh = new THREE.Mesh(planeGeometry, planeMaterial);
+    planeMesh.rotation.x = (3 * Math.PI) / 2;
+    planeMesh.position.x = 100;
+    planeMesh.position.y = -0.5;
+    scene.add(planeMesh);
+}
+
 function buildGalaxy() {
 
     /*
@@ -4155,14 +4209,6 @@ function buildGalaxy() {
     scene.add(cloudSystem);
     scene.add(cloudSystem2);
     scene.add(starSystem);
-}
-
-function buildGalaxyPlane(){
-  var planeGeometry = new THREE.PlaneGeometry( 300, 300 );
-  var planeMaterial = new THREE.MeshBasicMaterial( { color: 0x0000ff, side: THREE.DoubleSide } );
-  var planeMesh = new THREE.Mesh( planeGeometry, planeMaterial );
-  planeMesh.rotation.x = (3 * Math.PI) / 2;
-  scene.add( planeMesh );
 }
 
 function smokeTest () {
