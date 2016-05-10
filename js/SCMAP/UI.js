@@ -563,7 +563,7 @@ SCMAP.UI.makeSafeForCSS = function makeSafeForCSS( name ) {
    }
    return name.replace( /[^a-zA-Z0-9]/g, function(s) {
       var c = s.charCodeAt(0);
-      if (c == 32) return '-';
+      if (c === 32) return '-';
       if (c >= 65 && c <= 90) return '_' + s.toLowerCase();
       return (c.toString(16)).slice(-4);
    });
@@ -701,7 +701,7 @@ $(function() {
       }
 
       if ( storage && ( title in storage ) ) {
-         opened = ( storage[ title ] == '1' ) ? true : false;
+         opened = ( storage[ title ] === '1' ) ? true : false;
       }
 
       if ( opened ) {
@@ -763,7 +763,7 @@ $(function() {
 
    Handlebars.registerHelper( 'bigButton', function( id, faClass, title ) {
       return new Handlebars.SafeString( '<button class="big-button" id="'+id+'">'+
-         '<i class="fa '+faClass+' fa-fw fa-lg"></i> '+title+'</button>'+'<br>' );
+         '<i class="fa ' + faClass + ' fa-fw fa-lg"></i> ' + title + '</button><br>' );
    });
 
    Handlebars.registerHelper( 'commoditiesList', function( commodities ) {
@@ -944,7 +944,7 @@ $(function() {
       }
 
       function checkTriggers(element){
-         return element.offsetWidth != element.__resizeLast__.width || element.offsetHeight != element.__resizeLast__.height;
+         return element.offsetWidth !== element.__resizeLast__.width || element.offsetHeight !== element.__resizeLast__.height;
       }
       
       function scrollListener(e){
@@ -968,7 +968,7 @@ $(function() {
          element.attachEvent('onresize', fn);
       } else {
          if (!element.__resizeTriggers__) {
-            if (getComputedStyle(element).position == 'static') element.style.position = 'relative';
+            if (getComputedStyle(element).position === 'static') element.style.position = 'relative';
             element.__resizeLast__ = {};
             element.__resizeListeners__ = [];
             (element.__resizeTriggers__ = document.createElement('div')).className = 'resize-triggers';
