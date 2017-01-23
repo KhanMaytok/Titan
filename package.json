@@ -3,7 +3,7 @@
   "version": "0.9.0",
   "description": "WebGL Star Citizen Map",
   "devDependencies": {
-    "clean-css": "^3.4.7",
+    "clean-css": "^4.0.0",
     "grunt": "~1.0.1",
     "grunt-cli": "~1.2.0",
     "grunt-contrib-concat": "~1.0.1",
