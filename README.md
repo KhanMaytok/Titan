@@ -2,7 +2,7 @@
 
 [![Code Climate](https://codeclimate.com/github/KhanMaytok/Titan/badges/gpa.svg)](https://codeclimate.com/github/KhanMaytok/Titan)
 [![devDependency Status](https://david-dm.org/KhanMaytok/Titan/dev-status.svg)](https://david-dm.org/KhanMaytok/Titan#info=devDependencies)
-[![Build Status](https://travis-ci.org/KhanMaytok/Titan.svg?branch=master)](https://travis-ci.org/KhanMaytok/Titan)
+[![Build Status](https://travis-ci.org/KhanMaytok/Titan.svg?branch=master)](https://travis-ci.org/KhanMaytok/Titan) [![Greenkeeper badge](https://badges.greenkeeper.io/KhanMaytok/Titan.svg)](https://greenkeeper.io/)
 
 
 A WebGL version of the (reverse engineered) universe map for the upcoming game
